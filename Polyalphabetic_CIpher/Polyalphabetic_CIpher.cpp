@@ -74,7 +74,7 @@ void createVigenereTable()
                 tableArray[i][j] = temp; // adding ASCII of alphabet letter in table index position
             }
             else {
-                temp = ((i + 65) + j; // adding ASCII of alphabet letter in table index position
+                temp = ((i + 65) + j); // adding ASCII of alphabet letter in table index position
                 tableArray[i][j] = temp;
             }
         }
@@ -104,8 +104,33 @@ void cipherEncryption(std::string message, std::string mappedKey)
 
 int intCount(int key, int msg)
 {
+    int counter = 0;
+    std::string result = "";
 
-
+    //starting from ASCII of letter of key and ending at letter of message to get full 26 letter of alphabet
+    for (int i = 0; i < 26; i++)
+    {
+        if (key + i > 90)
+        {
+            result += (char)(key + (i - 26));
+        }
+        else
+        {
+            result += (char)(key + i);
+        }
+    }
+    for (int i = 0; i < result.length(); i++)
+    {
+        if (result[i] == msg)
+        {
+            break;
+        }
+        else
+        {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 
@@ -147,14 +172,23 @@ int main()
         messageAndKey();
         cipherDecryption(message, mappedKey);
     }
-    /*else if (userChoice == 3)
+    else if (userChoice == 3)
     {
         cout << "See you next time! Bye!" << endl;
-            break;
     }
-    */
+    else if (userChoice == 4)
+    {
+        cout << "Thank you! Bye!" << endl;
+        // break;
+    }
     else 
     {
         cout << "\n Wrong choice!\n" << endl;
     }
 }
+
+
+/* 
+* https://www.youtube.com/watch?v=RI8IXHupKTo
+* https://www.geeksforgeeks.org/vigenere-cipher/
+*/
